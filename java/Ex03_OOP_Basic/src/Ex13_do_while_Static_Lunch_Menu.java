@@ -1,0 +1,106 @@
+import java.util.Random;
+import java.util.Scanner;
+
+//바꾸는 과제 -> 
+
+public class Ex13_do_while_Static_Lunch_Menu {
+	
+	//static을 활용한 점심메뉴 선택하기 프로그램 작성
+	
+	
+	// 상단 ... 일반 ... 변수 (고유, 상태 , 부품(참조:클래스))
+	static Scanner sc = new Scanner(System.in); // 부품(참조:클래스)
+	static Random random = new Random();
+	
+	static int suggestRandom() {
+		String str = "";
+		int rannum = (int)(random.nextInt(3) + 1); //1~3
+		if(rannum == 1) {
+			str = "중국집";
+		}else if(rannum == 2) {
+			str = "도스마스";
+		}else {
+			str = "김가네";
+		}
+		System.out.println(str + "\n");
+		return rannum;
+	}
+	
+	static void subSuggest(int rannum) {	//subSuggest(suggestRandom());
+		System.out.println("여기엔 이런 메뉴도 있습니다.\n");
+		String str = "";
+		switch(rannum) {
+		
+		case 1:
+			str = "짜장면, 짬뽕, 탕수육";
+			break;
+		case 2:
+			str = "감튀, 소고기, 양고기 브리또";
+			break;
+		default:
+			str = "김가네는 진짜 맛이 없어요";
+		}
+		System.out.println(str);
+	}
+	
+	
+	// 기능
+
+	static int displayMenu() {
+		System.out.println("***************");
+		System.out.println("***뭐먹을까 추천좀***");
+		System.out.println("1. 식당 랜덤 추천");
+		System.out.println();
+		System.out.println("2. 가격 범위 추천");
+		System.out.println();
+		System.out.println("3. 가까운 거리 추천");
+		System.out.println();
+		System.out.println("4. 프로그램 종료");
+		System.out.println();
+
+		int menu = 0;
+		do {
+			try {
+				menu = Integer.parseInt(sc.nextLine());				//try 문으로 일단 해보라
+				if (menu >= 1 && menu <= 4) {						//if 1~4라면 무한루프 탈출
+					break; // while 탈출 (1<= menu <=4)				
+				} else {											//else -> throw new Exception()
+					// 1보다 작거나 4보다 큰 값값 .. 프로그램적인 오류 (x)
+					// 나는 오류 보겠다 (오류 사용자 강제)
+					// System.out.println("잘못 입력 하셨습니다");			
+					throw new Exception("메뉴 선택 번호가 잘못 되었습니다");	//문제를 일으키는 코드
+				}
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				System.out.println("메뉴 선택 문제 발생");
+				System.out.println("메뉴 1~4번까지 입력");
+			}
+		} while (true); // 와참두 와거탈
+		// 실행 : 사용자가 1 ~ 4까지 번호중에서 하나를 선택
+		return menu;
+	}
+
+	public static void main(String[] args) {
+		//Ex12_do_while_Static_Menu ex11 = new Ex12_do_while_Static_Menu();
+
+		while (true) {
+			switch (displayMenu()) {
+			case 1:
+				subSuggest(suggestRandom());
+				break;
+			case 2:
+				
+				break;
+			case 3:
+				
+				break;
+			case 4:
+				
+				System.out.println("프로그램 종료");
+				// return; //main 종료
+				System.exit(0); // 프로그램 강제 종료 (kill)
+			}
+		}
+	}
+
+}
